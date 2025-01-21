@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuscaFilmes.API", "FuscaFilmes.API\FuscaFilmes.API.csproj", "{C38FE35D-07D7-4AF5-921F-A75225C8546C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuscaFilmes.Repo", "FuscaFilmes.Repo\FuscaFilmes.Repo.csproj", "{6D3CFBDC-8865-4CCE-A29C-C6EAA398ABAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuscaFilmes.Domain", "FuscaFilmes.Domain\FuscaFilmes.Domain.csproj", "{BEE45084-FEBA-475B-ADAC-B6F2A869AB26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{C38FE35D-07D7-4AF5-921F-A75225C8546C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C38FE35D-07D7-4AF5-921F-A75225C8546C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C38FE35D-07D7-4AF5-921F-A75225C8546C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3CFBDC-8865-4CCE-A29C-C6EAA398ABAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3CFBDC-8865-4CCE-A29C-C6EAA398ABAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3CFBDC-8865-4CCE-A29C-C6EAA398ABAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3CFBDC-8865-4CCE-A29C-C6EAA398ABAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEE45084-FEBA-475B-ADAC-B6F2A869AB26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEE45084-FEBA-475B-ADAC-B6F2A869AB26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEE45084-FEBA-475B-ADAC-B6F2A869AB26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEE45084-FEBA-475B-ADAC-B6F2A869AB26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
