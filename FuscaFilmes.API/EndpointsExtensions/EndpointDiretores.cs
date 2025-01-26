@@ -12,6 +12,8 @@ public static class EndpointDiretores
 
         app.MapGet("/diretores/where/{id}", DiretoresHandlers.GetDiretoresById).WithOpenApi();
 
+        app.MapGet("/diretores/diretorDetalhe/{id}", DiretoresHandlers.GetDiretorDetalhe).WithOpenApi();
+
         app.MapPost("/diretores", DiretoresHandlers.AddDiretor).WithOpenApi();
 
         app.MapPut("/diretores", DiretoresHandlers.UpdateDiretor).WithOpenApi();

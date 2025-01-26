@@ -30,6 +30,20 @@ public class DiretorRepository(Context _context) : IDiretorRepository
             .Include(diretor => diretor.Filmes)
             .ToList();
     }
+
+    public DiretorDetalhe GetDiretorDetalhe(int id)
+    {
+        var diretor = Context.Diretores
+            .Include(diretor => diretor.DiretorDetalhe)
+            .FirstOrDefault(d => d.Id == id);
+
+        return diretor?.DiretorDetalhe ?? new DiretorDetalhe()
+        {
+            Id = 999999, 
+            Biografia = "Não ENcontrada", 
+            DataNascimento = new DateTime(1900, 01, 01)
+        };
+    }
     public void Add(Diretor diretor)
     {
         Context.Diretores.Add(diretor);

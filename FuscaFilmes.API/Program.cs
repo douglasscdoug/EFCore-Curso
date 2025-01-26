@@ -14,6 +14,7 @@ builder.Services.AddDbContext<Context>(
 );
 
 builder.Services.AddScoped<IDiretorRepository, DiretorRepository>();
+builder.Services.AddScoped<IDiretorDetalheRepository, DiretorDetalheRepository>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -36,6 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.DiretoresEndpoints();
+app.DiretorDetalheEndpoint();
 app.FilmesEndpoints();
 
 app.Run();

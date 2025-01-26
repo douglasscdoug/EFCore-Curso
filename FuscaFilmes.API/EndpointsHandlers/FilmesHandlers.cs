@@ -1,7 +1,6 @@
 using FuscaFilmes.API.DbContexts;
 using FuscaFilmes.API.Models;
 using FuscaFilmes.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace FuscaFilmes.API.EndpointsHandlers;
@@ -11,7 +10,7 @@ public static class FilmesHandlers
     public static List<Filme> GetFilmes(Context context)
     {
         return context.Filmes
-            .Include(filme => filme.Diretor)
+            .Include(filme => filme.Diretores)
             // .OrderBy(filme => filme.Ano)
             .OrderByDescending(filme => filme.Ano)
             // .ThenBy(filme => filme.Titulo)
@@ -23,21 +22,21 @@ public static class FilmesHandlers
     {
         return context.Filmes
             .Where(filme => filme.Id == id)
-            .Include(filme => filme.Diretor).ToList();
+            .Include(filme => filme.Diretores).ToList();
     }
 
     public static List<Filme> GetFilmeEFFunctionsByTitulo(Context context, string titulo)
     {
         return context.Filmes
             .Where(filme => EF.Functions.Like(filme.Titulo, $"%{titulo}%"))
-            .Include(filme => filme.Diretor).ToList();
+            .Include(filme => filme.Diretores).ToList();
     }
 
     public static List<Filme> GetFilmesContainsByTitulo(Context context, string titulo)
     {
         return context.Filmes
             .Where(filme => filme.Titulo.Contains(titulo))
-            .Include(filme => filme.Diretor).ToList();
+            .Include(filme => filme.Diretores).ToList();
     }
 
     public static void ExecuteDeleteFilme(int filmeId, Context context)

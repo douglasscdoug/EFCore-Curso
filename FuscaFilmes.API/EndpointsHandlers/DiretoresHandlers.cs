@@ -20,6 +20,11 @@ public static class DiretoresHandlers
         return diretorRepository.GetDiretoresById(id);
     }
 
+    public static DiretorDetalhe GetDiretorDetalhe(int id, IDiretorRepository diretorRepository)
+    {
+        return diretorRepository.GetDiretorDetalhe(id);
+    }
+
     public static void AddDiretor(Diretor diretor, IDiretorRepository diretorRepository)
     {
         diretorRepository.Add(diretor);
