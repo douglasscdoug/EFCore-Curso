@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FuscaFilmes.API.DbContexts;
 using FuscaFilmes.API.Models;
 using FuscaFilmes.Domain.Entities;
@@ -7,48 +8,51 @@ namespace FuscaFilmes.API.EndpointsHandlers;
 
 public static class FilmesHandlers
 {
-    public static List<Filme> GetFilmes(Context context)
+    public static async Task<List<Filme>> GetFilmesAssync(Context context)
     {
-        return context.Filmes
+        return await context.Filmes
             .Include(filme => filme.Diretores)
             // .OrderBy(filme => filme.Ano)
             .OrderByDescending(filme => filme.Ano)
             // .ThenBy(filme => filme.Titulo)
             .ThenByDescending(filme => filme.Titulo)
-            .ToList();
+            .ToListAsync();
     }
 
-    public static List<Filme> GetFilmeById(Context context, int id)
+    public static async Task<List<Filme>> GetFilmeByIdAssync(Context context, int id)
     {
-        return context.Filmes
+        return await context.Filmes
             .Where(filme => filme.Id == id)
-            .Include(filme => filme.Diretores).ToList();
+            .Include(filme => filme.Diretores)
+            .ToListAsync();
     }
 
-    public static List<Filme> GetFilmeEFFunctionsByTitulo(Context context, string titulo)
+    public static async Task<List<Filme>> GetFilmeEFFunctionsByTituloAssync(Context context, string titulo)
     {
-        return context.Filmes
+        return await context.Filmes
             .Where(filme => EF.Functions.Like(filme.Titulo, $"%{titulo}%"))
-            .Include(filme => filme.Diretores).ToList();
+            .Include(filme => filme.Diretores)
+            .ToListAsync();
     }
 
-    public static List<Filme> GetFilmesContainsByTitulo(Context context, string titulo)
+    public static async Task<List<Filme>> GetFilmesContainsByTituloAssync(Context context, string titulo)
     {
-        return context.Filmes
+        return await context.Filmes
             .Where(filme => filme.Titulo.Contains(titulo))
-            .Include(filme => filme.Diretores).ToList();
+            .Include(filme => filme.Diretores)
+            .ToListAsync();
     }
 
-    public static void ExecuteDeleteFilme(int filmeId, Context context)
+    public static async Task ExecuteDeleteFilmeAssync(int filmeId, Context context)
     {
-        context.Filmes
+        await context.Filmes
          .Where(filme => filme.Id == filmeId)
-         .ExecuteDelete<Filme>();
+         .ExecuteDeleteAsync<Filme>();
     }
 
-    public static IResult UpdateFilme(Context context, FilmeUpdate filmeUpdate)
+    public static async Task<IResult> UpdateFilmeAssync(Context context, FilmeUpdate filmeUpdate)
     {
-        var filme = context.Filmes.Find(filmeUpdate.Id);
+        var filme = await context.Filmes.FindAsync(filmeUpdate.Id);
 
         if (filme == null)
         {
@@ -59,16 +63,16 @@ public static class FilmesHandlers
         filme.Ano = filmeUpdate.Ano;
 
         context.Filmes.Update(filme);
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         return Results.Ok($"Filme Id: {filmeUpdate.Id}, Atualizado com sucesso!");
     }
 
-    public static IResult ExecuteUpdateFIlme(Context context, FilmeUpdate filmeUpdate)
+    public static async Task<IResult> ExecuteUpdateFIlmeAssync(Context context, FilmeUpdate filmeUpdate)
     {
-        var linhasAfetadas = context.Filmes
+        var linhasAfetadas = await context.Filmes
          .Where(filme => filme.Id == filmeUpdate.Id)
-         .ExecuteUpdate(setter => setter
+         .ExecuteUpdateAsync(setter => setter
              .SetProperty(f => f.Titulo, filmeUpdate.Titulo)
              .SetProperty(f => f.Ano, filmeUpdate.Ano)
          );

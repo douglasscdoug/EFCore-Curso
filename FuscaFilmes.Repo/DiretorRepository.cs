@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using FuscaFilmes.API.DbContexts;
 using FuscaFilmes.Domain.Entities;
 using FuscaFilmes.Repo.Contratos;
@@ -10,32 +11,32 @@ public class DiretorRepository(Context _context) : IDiretorRepository
 {
     public Context Context { get; } = _context;
     
-    public List<Diretor> GetDiretores()
+    public async Task<List<Diretor>> GetDiretoresAssync()
     {
-        return Context.Diretores.Include(diretor => diretor.Filmes).ToList();
+        return await Context.Diretores.Include(diretor => diretor.Filmes).ToListAsync();
     }
 
-    public Diretor GetDiretorByName(string name)
+    public async Task<Diretor> GetDiretorByNameAssync(string name)
     {
-        return Context.Diretores
+        return await Context.Diretores
             .Include(diretor => diretor.Filmes)
-            .FirstOrDefault(diretor => diretor.Name.Contains(name))
+            .FirstOrDefaultAsync(diretor => diretor.Name.Contains(name))
             ?? new Diretor() { Id = 999, Name = "Marina" };
     }
 
-    public List<Diretor> GetDiretoresById(int id)
+    public async Task<List<Diretor>> GetDiretoresByIdAssync(int id)
     {
-        return Context.Diretores
+        return await Context.Diretores
             .Where(diretor => diretor.Id == id)
             .Include(diretor => diretor.Filmes)
-            .ToList();
+            .ToListAsync();
     }
 
-    public DiretorDetalhe GetDiretorDetalhe(int id)
+    public async Task<DiretorDetalhe> GetDiretorDetalheAssync(int id)
     {
-        var diretor = Context.Diretores
+        var diretor = await Context.Diretores
             .Include(diretor => diretor.DiretorDetalhe)
-            .FirstOrDefault(d => d.Id == id);
+            .FirstOrDefaultAsync(d => d.Id == id);
 
         return diretor?.DiretorDetalhe ?? new DiretorDetalhe()
         {
@@ -44,22 +45,22 @@ public class DiretorRepository(Context _context) : IDiretorRepository
             DataNascimento = new DateTime(1900, 01, 01)
         };
     }
-    public void Add(Diretor diretor)
+    public async Task AddAssync(Diretor diretor)
     {
-        Context.Diretores.Add(diretor);
+        await Context.Diretores.AddAsync(diretor);
     }
 
-    public void Delete(int diretorId)
+    public async Task DeleteAssync(int diretorId)
     {
-        var diretor = Context.Diretores.Find(diretorId);
+        var diretor = await Context.Diretores.FindAsync(diretorId);
 
         if (diretor != null)
             Context.Remove(diretor);
     }
 
-    public void Update(Diretor diretorNovo)
+    public async Task UpdateAssync(Diretor diretorNovo)
     {
-        var diretor = Context.Diretores.Find(diretorNovo.Id);
+        var diretor = await Context.Diretores.FindAsync(diretorNovo.Id);
 
         if (diretor != null)
         {
@@ -75,9 +76,9 @@ public class DiretorRepository(Context _context) : IDiretorRepository
         }
     }
 
-    public bool SaveChanges()
+    public async Task<bool> SaveChangesAssync()
     {
-        return Context.SaveChanges() > 0;
+        return (await Context.SaveChangesAsync()) > 0;
     }
 
 }

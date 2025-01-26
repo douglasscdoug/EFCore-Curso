@@ -6,18 +6,25 @@ public static class EndpointDiretores
 {
     public static void DiretoresEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet("/diretores", DiretoresHandlers.GetDiretores).WithOpenApi();
+        app.MapGet("/diretores", DiretoresHandlers.GetDiretoresAssync)
+            .WithOpenApi();
 
-        app.MapGet("/diretores/agregacao/{name}", DiretoresHandlers.GetDiretorByName).WithOpenApi();
+        app.MapGet("/diretores/agregacao/{name}", DiretoresHandlers.GetDiretorByNameAssync)
+            .WithOpenApi();
 
-        app.MapGet("/diretores/where/{id}", DiretoresHandlers.GetDiretoresById).WithOpenApi();
+        app.MapGet("/diretores/where/{id}", DiretoresHandlers.GetDiretoresByIdAssync)
+            .WithOpenApi();
 
-        app.MapGet("/diretores/diretorDetalhe/{id}", DiretoresHandlers.GetDiretorDetalhe).WithOpenApi();
+        app.MapGet("/diretores/diretorDetalhe/{id}", DiretoresHandlers.GetDiretorDetalheAssync)
+            .WithOpenApi();
 
-        app.MapPost("/diretores", DiretoresHandlers.AddDiretor).WithOpenApi();
+        app.MapPost("/diretores", DiretoresHandlers.AddDiretorAssync)
+            .WithOpenApi();
 
-        app.MapPut("/diretores", DiretoresHandlers.UpdateDiretor).WithOpenApi();
+        app.MapPut("/diretores", DiretoresHandlers.UpdateDiretorAssync)
+            .WithOpenApi();
 
-        app.MapDelete("/diretores/{diretorId}", DiretoresHandlers.DeleteDiretor).WithOpenApi();
+        app.MapDelete("/diretores/{diretorId}", DiretoresHandlers.DeleteDiretorAssync)
+            .WithOpenApi();
     }
 }
